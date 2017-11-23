@@ -128,23 +128,24 @@ const bricks = (options = {}) => {
       nodeTop = `${columnHeights[columnTarget]}px`
       nodeLeft = `${(columnTarget * nodesWidths[index]) + (columnTarget * sizeDetail.gutter)}px`
 
-      // support positioned elements (default) or transformed elements
-      if (position) {
-        element.style.top = nodeTop
-        element.style.left = nodeLeft
-      } else {
-        element.style.transform = `translate3d(${nodeLeft}, ${nodeTop}, 0)`
-      }
-
-      element.setAttribute(packed, '')
-
       // ignore nodes with no width and/or height
       nodeWidth = nodesWidths[index]
       nodeHeight = nodesHeights[index]
 
       if (nodeWidth && nodeHeight) {
         columnHeights[columnTarget] += nodeHeight + sizeDetail.gutter
+
+        // support positioned elements (default) or transformed elements
+        if (position) {
+          element.style.top = nodeTop
+          element.style.left = nodeLeft
+        } else {
+          element.style.transform = `translate3d(${nodeLeft}, ${nodeTop}, 0)`
+        }
+
+        element.setAttribute(packed, '')
       }
+
     })
   }
 
